@@ -8,8 +8,8 @@ app.secret_key = "Password@1$"
 
 
 @app.route('/')
-def test_method():
-    return "Tested and Trusted!"
+def home():
+    return render_template('home.html')
 
 
 @app.before_first_request
@@ -22,7 +22,12 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/login-validate', methods=['POST'])
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+@app.route('/auth/login', methods=['POST'])
 def login_user():
     email = request.form['email']
     password = request.form['password']
@@ -36,6 +41,24 @@ def login_user():
         session['email'] = None
 
     return render_template("profile.html", email=session['email'])
+
+
+@app.route('/auth/register', methods=['POST'])
+def register_user():
+    name = request.form['name']
+    email = request.form['email']
+    password = request.form['password']
+
+    User.register(name, email, password)
+    user = User.get_by_email(email)
+
+    return render_template("profile.html", name=user.name)
+
+
+@app.route('/auth/logout')
+def logout():
+    User.logout()
+    return render_template("home.html")
 
 
 if __name__ == '__main__':
