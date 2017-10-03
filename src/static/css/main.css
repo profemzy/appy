@@ -2,6 +2,10 @@
     margin-top: 25px;
 }
 
+.page-form {
+    max-width: 480px;
+}
+
 body {
     margin-top: 25px;
 }

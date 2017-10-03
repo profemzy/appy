@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends "auth_base.html" %}
 
 {% block content %}
 
-    <form id="register-form" action="/auth/register" method="post" class="form-signin">
+    <div class="container page-form">
+        <form id="register-form" action="/auth/register" method="post" class="form-signin">
         <h2 class="form-signin-heading">Please Register</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input id="name" type="text" name="name" placeholder="Name" class="form-control">
@@ -16,4 +17,6 @@
 
         <input id="submit-button" type="submit" value="Register" class="btn btn-lg btn-primary btn-block">
     </form>
+    </div>
+
 {% endblock %}

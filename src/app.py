@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 
+from src.models.blog import Blog
 from src.models.common.database import Database
 from src.models.user import User
 
@@ -59,6 +60,27 @@ def register_user():
 def logout():
     User.logout()
     return render_template("home.html")
+
+
+@app.route('/blogs/<string:user_id>')
+@app.route('/blogs')
+def user_blogs(user_id=None):
+    if user_id is not None:
+        user = User.get_by_id(user_id)
+    else:
+        user = User.get_by_email(session['email'])
+
+    blogs = user.get_blogs()
+
+    return render_template("user_blogs.html", blogs=blogs, name=user.name)
+
+
+@app.route('/posts/<string:blog_id>')
+def blog_posts(blog_id):
+    blog = Blog.from_mongo(blog_id)
+    posts = blog.get_posts()
+
+    return render_template('posts.html', posts=posts, blog_title=blog.title)
 
 
 if __name__ == '__main__':
