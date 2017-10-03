@@ -3,14 +3,14 @@
 {% block content %}
     <div class="container">
         <h2>{{ name }}'s blogs</h2>
-        {% if posts|length > 0 %}
+        {% if blogs|length > 0 %}
             {% for blog in blogs %}
                 <h3><a href="/posts/{{ blog._id }}">{{ blog.title }}</a></h3>
                 <p>{{ blog.description }}</p>
                 <hr>
             {% endfor %}
         {% else %}
-            <h4>No Posts in this blog!!</h4>
+            <h4>No blogs!!</h4>
         {% endif %}
 
     </div>
